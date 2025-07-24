@@ -1,0 +1,16 @@
+import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
+import { embedConfigMenu, menuConfig } from "../../components/configMenu.js";
+
+export default {
+    data: new SlashCommandBuilder()
+        .setName("configurar")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .setDescription('Configurar ticket')
+        .addSubcommand(sb => sb.setName("ticket").setDescription("Configure seu ticket")),
+
+        async execute(interaction, client) {
+            
+            return interaction.reply({ embeds: [await embedConfigMenu({ interaction: interaction })], components: [await menuConfig()], ephemeral: true})
+        }
+        
+}
