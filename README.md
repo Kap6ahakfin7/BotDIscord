@@ -1,13 +1,11 @@
-# 🤖 BotDiscord IA
+📁 Estrutura do Projeto
 
-Um bot inteligente para Discord com funções automatizadas e personalizadas.
+    commands/ — comandos responsáveis pela verificação e interação com usuários
 
-## 🚀 Funcionalidades
+    events/ — eventos do Discord, como entrada de membros e reações para verificação
 
-- 🎤 Responde comandos com IA
-- 🧠 Processamento de linguagem natural
-- 🔧 Sistema de comandos customizáveis
-- 🔐 Integração segura com variáveis de ambiente
+    utils/ — funções auxiliares para validação e controle de acesso
 
-## 📁 Estrutura do Projeto
+    config/ — configurações de segurança e variáveis de ambiente para tokens e permissões
 
+    database/ — armazenamento de dados dos usuários verificados e logs de atividades
