@@ -1,0 +1,38 @@
+const fs = require("fs");
+const chalk = require('chalk');
+
+module.exports = async (client) => {
+
+  // Puxando os comandos em slash!
+  const ArgsScommands = [];
+
+  fs.readdir(`././SlashCommands/`, (err, fol) => {
+    fs.readdir(`././SlashCommands/`, (er, files) => {
+
+      files.forEach(command => {
+
+        if (!command?.endsWith('.js')) return;
+        command = require(`../SlashCommands/${command}`);
+        if (command.name) {
+          client.slashCommands.set(command.name, command);
+        };
+        ArgsScommands.push(command);
+
+      });
+    });
+  });
+
+  // Carregando os comandos slash globalmente!
+  client.on("ready", async () => {
+
+    try {
+
+      client.application.commands.set(ArgsScommands);
+      console.log(chalk.hex(`00FF00`).bold(`[BOT] ${ArgsScommands.length} comando(s) slash carregado(s) globalmente.`))
+    } catch (e) {
+      console.log(chalk.hex(`FF0000`).bold(`[BOT] Não foi possível carregar os ${ArgsScommands.length} comando(s) slash globalmente.`));
+      process.exit();
+    };
+
+  });
+};
