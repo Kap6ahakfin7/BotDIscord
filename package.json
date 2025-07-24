@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "discord.js": "^14.10.2",
+    "wio.db": "^4.0.22"
+  }
+}
