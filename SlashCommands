@@ -1,0 +1,49 @@
+const Discord = require("discord.js");
+
+const { JsonDatabase } = require("wio.db");
+const dbB = new JsonDatabase({ databasePath: "./databases/myJsonBotConfig.json" });
+
+module.exports = {
+    name: "painel",
+    description: "[🛠/ADM] Painel de Verificação por Captcha",
+    type: Discord.ApplicationCommand.ChatInput,
+
+    run: async (client, interaction) => {
+
+        if (!interaction.member.permissions.has(Discord.PermissionFlagsBits.Administrator)) {
+            return interaction.reply({
+                content: "❌ | Você não tem permissão para usar este comando!",
+                ephemeral: true,
+            });
+
+        } else {
+
+            await interaction.channel.send({
+                embeds: [new Discord.EmbedBuilder()
+                    .setAuthor({ name: client.user.username, iconURL: client.user.avatarURL({ dynamic: true }) })
+                    .setTitle(`Após a verificação você ficará CIENTE DE TODOS OS TERMOS`)
+                    .setDescription(`🔗 • Clique no botão abaixo para se verificar em nosso servidor!`)
+                    .setColor(dbB.get(`color`))
+                    .setFooter({ text: `${client.user.username} - Todos os Direitos Reservados.` })
+                    .setThumbnail("https://cdn.discordapp.com/attachments/1099535792801587272/1116556088079298580/SADASDA.png")
+                    .setImage("https://media.discordapp.net/attachments/1099535792801587272/1116555740295995392/verifi.png?width=810&height=134")
+                ],
+                components: [new Discord.ActionRowBuilder()
+                    .addComponents(
+                        new Discord.ButtonBuilder()
+                            .setCustomId(`verificarCap`)
+                            .setLabel(`Verificar`)
+                            .setEmoji(`<a:verify_green_SPACERP:882801341553065984>`)
+                            .setStyle(`Secondary`)
+                    )
+                ]
+            });
+
+            await interaction.reply({
+                content: `<a:simsz:1093773597987840080> | Painel criado em **${interaction.channel.name}** com sucesso.`,
+                ephemeral: true
+            });
+
+        };
+    }
+};
